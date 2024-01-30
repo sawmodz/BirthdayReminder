@@ -1,5 +1,6 @@
-package com.blizz.birthdayreminder.bll;
+package com.blizz.birthdayreminder.bll.interfaces;
 
+import com.blizz.birthdayreminder.bll.exeption.PersonneExeption;
 import com.blizz.birthdayreminder.bo.Personne;
 
 import java.util.List;

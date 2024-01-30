@@ -1,14 +1,12 @@
 package com.blizz.birthdayreminder.bo;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Personne {
     String prenom, nom;
     int id;
     LocalDate dateNaissance;
+    Club club;
 
     public Personne(String prenom, String nom, LocalDate dateNaissance) {
         this.prenom = prenom;
@@ -58,6 +56,10 @@ public class Personne {
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
+
+    public Club getClub() { return club; }
+
+    public void setClub(Club club) { this.club = club; }
 
     @Override
     public String toString() {

@@ -1,9 +1,10 @@
 package com.blizz.birthdayreminder.ihm;
 
-import com.blizz.birthdayreminder.bll.PersonneExeption;
-import com.blizz.birthdayreminder.bll.PersonneService;
+import com.blizz.birthdayreminder.bll.exeption.PersonneExeption;
+import com.blizz.birthdayreminder.bll.interfaces.ClubService;
+import com.blizz.birthdayreminder.bll.interfaces.PersonneService;
+import com.blizz.birthdayreminder.bo.Club;
 import com.blizz.birthdayreminder.bo.Personne;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -20,23 +21,30 @@ import java.util.List;
 @RequestMapping("/")
 public class MainController {
     @Autowired
-    PersonneService service;
+    PersonneService personneService;
+    @Autowired
+    ClubService clubService;
 
     @ModelAttribute("listUsers")
     public List<Personne> listUsers() {
-        return service.findNextMonth();
+        System.out.println(personneService.findNextMonth());
+        return personneService.findNextMonth();
     }
 
+    @ModelAttribute("listClub")
+    public List<Club> listClub() { return clubService.findAll(); }
+
     @GetMapping
-    public String index(Personne personne) {
+    public String index(Personne personne, Club club) {
         return "index";
     }
 
-    @PostMapping
+    @PostMapping("/personne")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public String add(@ModelAttribute Personne personne, BindingResult errors, Model model) throws PersonneExeption {
+    public String add(@ModelAttribute Personne personne,@ModelAttribute("club") String club , BindingResult errors, Model model) throws PersonneExeption {
         try {
-            service.add(personne);
+            personne.setClub(clubService.findById(Integer.parseInt(club)));
+            personneService.add(personne);
         } catch (PersonneExeption e) {
             errors.rejectValue("dateNaissance", "error.personne", e.getMessage());
             model.addAttribute("errors", errors);
@@ -44,6 +52,12 @@ public class MainController {
             return "index";
         }
 
+        return "redirect:/";
+    }
+
+    @PostMapping("/club")
+    public String addClub(@ModelAttribute Club club) {
+        clubService.add(club);
         return "redirect:/";
     }
 }

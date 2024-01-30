@@ -1,4 +1,4 @@
-package com.blizz.birthdayreminder.dal;
+package com.blizz.birthdayreminder.dal.interfaces;
 
 import com.blizz.birthdayreminder.bo.Personne;
 

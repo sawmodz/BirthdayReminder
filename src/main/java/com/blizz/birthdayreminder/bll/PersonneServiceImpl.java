@@ -1,14 +1,16 @@
 package com.blizz.birthdayreminder.bll;
 
+import com.blizz.birthdayreminder.bll.exeption.PersonneExeption;
+import com.blizz.birthdayreminder.bll.interfaces.PersonneService;
 import com.blizz.birthdayreminder.bo.Personne;
-import com.blizz.birthdayreminder.dal.PersonneDAO;
+import com.blizz.birthdayreminder.dal.interfaces.PersonneDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PersonneServiceImpl implements PersonneService{
+public class PersonneServiceImpl implements PersonneService {
     @Autowired
     PersonneDAO dao;
 

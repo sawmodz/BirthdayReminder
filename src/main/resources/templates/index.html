@@ -7,13 +7,22 @@
 </head>
 <body>
     <div class="left">
-        <form data-th-action="@{/}" data-th-object="${personne}" method="post">
+        <form data-th-action="@{/personne}" data-th-object="${personne}" method="post">
             <h4>Ajouter une personne</h4>
             <p>Nom: <input type="text" data-th-field="*{nom}" /></p>
             <p>Prenom: <input type="text" data-th-field="*{prenom}" /></p>
             <p>Age: <input type="date"  data-th-field="*{dateNaissance}" pattern="yyyy-MM-dd" /></p>
 
             <p class="alert" th:if="${#fields.hasErrors('dateNaissance')}" th:errors="*{dateNaissance}"></p>
+
+            <select name="club">
+                <option data-th-each="club : ${listClub}" data-th-value="${club.id}" data-th-text="${club.name}"></option>
+            </select>
+            <p><input type="submit" value="Enregistrer" />
+        </form>
+        <form data-th-action="@{/club}" data-th-object="${club}" method="post">
+            <h4>Creer un Club</h4>
+            <p>Nom: <input type="text" data-th-field="*{name}" /></p>
             <p><input type="submit" value="Enregistrer" />
         </form>
     </div>
@@ -23,6 +32,12 @@
                 <span data-th-text="${personne.nom}"/>
                 <span data-th-text="${personne.prenom}"/>
                 <span data-th-text="${personne.dateNaissance}"/>
+                <span data-th-text="${personne.club.name}"/>
+            </p>
+        </div>
+        <div class="users">
+            <p data-th-each="club : ${listClub}">
+                <span data-th-text="${club.name}"/>
             </p>
         </div>
     </div>
