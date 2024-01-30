@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="left">
+        <form data-th-action="@{/}" data-th-object="${personne}" method="post">
+            <h4>Ajouter une personne</h4>
+            <p>Nom: <input type="text" data-th-field="*{nom}" /></p>
+            <p>Prenom: <input type="text" data-th-field="*{prenom}" /></p>
+            <p>Age: <input type="date"  data-th-field="*{dateNaissance}" pattern="yyyy-MM-dd" /></p>
+
+            <p class="alert" th:if="${#fields.hasErrors('dateNaissance')}" th:errors="*{dateNaissance}"></p>
+            <p><input type="submit" value="Enregistrer" />
+        </form>
+    </div>
+    <div class="right">
+        <div class="users">
+            <p data-th-each="personne : ${listUsers}">
+                <span data-th-text="${personne.nom}"/>
+                <span data-th-text="${personne.prenom}"/>
+                <span data-th-text="${personne.dateNaissance}"/>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
